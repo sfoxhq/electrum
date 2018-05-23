@@ -50,8 +50,6 @@ from electrum.util import (UserCancelled, print_error,
 
 from .installwizard import InstallWizard, GoBack
 
-from electrum.lightning import LightningUI
-
 try:
     from . import icons_rc
 except Exception as e:
@@ -119,7 +117,6 @@ class ElectrumGui:
         self.app.new_window_signal.connect(self.start_new_window)
         run_hook('init_qt', self)
         ColorScheme.update_from_widget(QWidget())
-        self.lightning = LightningUI(self.set_console_and_return_lightning)
 
     def set_console_and_return_lightning(self):
         self.windows[0].wallet.network.lightningrpc.setConsole(self.windows[0].console)
