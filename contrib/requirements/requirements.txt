@@ -1,5 +1,5 @@
 pyaes>=0.1a1
-git+https://github.com/sfoxhq/python-ecdsa.git@faster-multiplication
+sfox-ecdsa==0.13
 pbkdf2
 requests
 qrcode

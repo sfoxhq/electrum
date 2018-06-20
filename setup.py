@@ -44,6 +44,7 @@ setup(
     name="Electrum",
     version=version.ELECTRUM_VERSION,
     install_requires=requirements,
+    dependency_links=['git+https://github.com/sfoxhq/python-ecdsa.git@faster-multiplication#egg=sfox-ecdsa-0.13'],
     extras_require={
         'full': requirements_hw + ['pycryptodomex'],
     },
