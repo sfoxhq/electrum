@@ -922,7 +922,16 @@ class Transaction:
             nSequence = int_to_hex(txin.get('sequence', 0xffffffff - 1), 4)
             preimage = nVersion + hashPrevouts + hashSequence + outpoint + scriptCode + amount + nSequence + hashOutputs + nLocktime + nHashType
         else:
-            txins = var_int(len(inputs)) + ''.join(self.serialize_input(txin, self.get_preimage_script(txin) if i==k else '') for k, txin in enumerate(inputs))
+            results = []
+            base_serialize_input = self.serialize_input(txin, '')
+            for k, txin in enumerate(inputs):
+                if k == i:
+                    wissam_preimage = self.get_preimage_script(txin)
+                    serialize_input = self.serialize_input(txin,wissam_preimage)
+                else:
+                    serialize_input = base_serialize_input
+                results.append(serialize_input)
+            txins = var_int(len(inputs)) + ''.join(results)
             txouts = var_int(len(outputs)) + ''.join(self.serialize_output(o) for o in outputs)
             preimage = nVersion + txins + txouts + nLocktime + nHashType
         return preimage
